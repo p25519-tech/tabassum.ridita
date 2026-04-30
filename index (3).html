@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabassum Alim Ridita — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f5f1eb;
+      --ink: #1a1208;
+      --accent: #b85c2a;
+      --soft: #e8e0d4;
+      --muted: #8a7d6e;
+      --line: #c9bfb0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      padding: 1.4rem 3rem;
+      background: rgba(245, 241, 235, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ── HEADER ── */
+    header {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: 'TAR';
+      position: absolute;
+      right: -0.05em;
+      bottom: -0.2em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(10rem, 22vw, 22rem);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--line);
+      pointer-events: none;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .header-left { position: relative; z-index: 1; }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 26rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .scroll-hint {
+      margin-top: 4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 3rem;
+      background: var(--muted);
+      animation: pulse-line 2s ease-in-out infinite;
+    }
+    @keyframes pulse-line {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section {
+      padding: 6rem 5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      max-width: 8rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1.2rem;
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-aside {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: var(--soft);
+      border-left: 3px solid var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROFILE PHOTO ── */
+    .about-photo {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--line);
+      display: block;
+      margin-bottom: 2rem;
+      filter: grayscale(15%);
+      transition: filter 0.4s;
+    }
+    .about-photo:hover { filter: grayscale(0%); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--ink); color: var(--bg); border-top-color: var(--ink); }
+    #skills .section-label { color: #c8956a; }
+    #skills .section-label::after { background: #3a3020; }
+    #skills h2 { color: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: #3a3020;
+      border: 1px solid #3a3020;
+      margin-top: 1rem;
+    }
+
+    .skill-item {
+      background: var(--ink);
+      padding: 2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .skill-item:hover { background: #2a2010; }
+
+    .skill-item::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .skill-item:hover::before { transform: scaleX(1); }
+
+    .skill-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: #5a4d3e;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .skill-name {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--bg);
+      letter-spacing: -0.01em;
+    }
+
+    .skill-tag {
+      margin-top: 0.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: #8a7d6e;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: start;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .project-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--line);
+      line-height: 1;
+      min-width: 4rem;
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 2px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--soft);
+      text-align: center;
+    }
+
+    #contact h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--accent);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .contact-email:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .contact-note {
+      margin-top: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FADE IN ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; }
+      header::after { font-size: 8rem; }
+      #about { grid-template-columns: 1fr; gap: 0; }
+      .about-photo { max-width: 180px; margin-bottom: 1.5rem; }
+      section { padding: 4rem 2rem; }
+      nav { gap: 1.2rem; padding: 1.2rem 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .project-card { grid-template-columns: 1fr; gap: 1rem; }
+      .project-number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="home">
+    <div class="header-left">
+      <div class="eyebrow">Portfolio</div>
+      <h1>Tabassum<br><em>Alim</em> Ridita</h1>
+      <p class="tagline">Aspiring professional with a passion for purposeful work and continuous growth.</p>
+      <div class="scroll-hint">Scroll to explore</div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <div class="section-label">01 — About</div>
+      <h2>Who I am</h2>
+      <img src="photo.jpg" alt="Tabassum Alim Ridita" class="about-photo reveal" />
+    </div>
+    <div>
+      <div class="about-text reveal">
+        <p>I consider myself a responsible and orderly person. I am passionate about my work because I do what I love, and this passion leads me to challenge myself daily.</p>
+        <p>I am looking forward to gaining my first professional work experience and contributing meaningfully from day one.</p>
+      </div>
+      <div class="about-aside reveal">
+        📍 &nbsp;Currently open to opportunities &nbsp;·&nbsp; Eager learner &nbsp;·&nbsp; Detail-oriented
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">02 — Skills</div>
+    <h2>What I bring to the table</h2>
+    <div class="skills-grid">
+      <div class="skill-item reveal">
+        <div class="skill-num">01</div>
+        <div class="skill-name">Problem Solving</div>
+        <div class="skill-tag">Analytical Thinking</div>
+      </div>
+      <div class="skill-item reveal">
+        <div class="skill-num">02</div>
+        <div class="skill-name">Communication</div>
+        <div class="skill-tag">Written &amp; Verbal</div>
+      </div>
+      <div class="skill-item reveal">
+        <div class="skill-num">03</div>
+        <div class="skill-name">Microsoft Office</div>
+        <div class="skill-tag">Word · Excel · PowerPoint</div>
+      </div>
+      <div class="skill-item reveal">
+        <div class="skill-num">04</div>
+        <div class="skill-name">Research &amp; Analysis</div>
+        <div class="skill-tag">Academic Proficiency</div>
+      </div>
+      <div class="skill-item reveal">
+        <div class="skill-num">05</div>
+        <div class="skill-name">Time Management</div>
+        <div class="skill-tag">Organisation &amp; Planning</div>
+      </div>
+      <div class="skill-item reveal">
+        <div class="skill-num">06</div>
+        <div class="skill-name">Teamwork</div>
+        <div class="skill-tag">Collaboration</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">03 — Projects</div>
+    <h2>Selected work</h2>
+
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <div>
+        <h3 class="project-title">Academic Research Project — Consumer Behaviour Analysis</h3>
+        <div class="project-tags">
+          <span class="tag">Research</span>
+          <span class="tag">Data Analysis</span>
+          <span class="tag">Presentation</span>
+          <span class="tag">Academic</span>
+        </div>
+        <p class="project-desc">
+          Conducted a comprehensive study on consumer decision-making patterns as part of a university course assignment. 
+          Gathered primary data through surveys, organised and interpreted findings using spreadsheet tools, and presented 
+          conclusions with actionable insights. The project strengthened my skills in structured thinking, data organisation, 
+          and professional communication.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label" style="justify-content:center;">04 — Contact</div>
+    <h2>Let's connect</h2>
+    <p style="color:var(--muted); margin-bottom:2.5rem; max-width:32rem; margin-left:auto; margin-right:auto;">
+      I am actively seeking my first professional opportunity. Feel free to reach out — I would love to hear from you.
+    </p>
+    <a class="contact-email" href="mailto:p25519@psuca.edu">p25519@psuca.edu</a>
+    <p class="contact-note">Response within 24 hours</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Tabassum Alim Ridita</p>
+    <p>Built with care · GitHub Pages</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll reveals
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
